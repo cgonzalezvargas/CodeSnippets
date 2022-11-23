@@ -1,0 +1,43 @@
+trigger CrewmemberReadiness on Crewmember__c (after update)
+{
+    for(Id recordId : Trigger.newMap.keySet())
+    {
+        if(Trigger.oldMap.get(recordId).Training_Records__c != Trigger.newMap.get(recordId).Training_Records__c)
+        {
+            //add logic or assignments to trigger
+            //pass values to controller class
+            Set<Id> recordIds = Trigger.newMap.keySet();
+            List<Crewmember_Training__c> records = [SELECT]
+        }
+        if(Trigger.oldMap.get(recordId).Flight_Hours__c != Trigger.newMap.get(recordId).Flight_Hours__c)
+        {
+            //second conditional to check for flight hour changes
+            //pass map to controller class
+        }
+    }
+
+}
+
+
+List<Projects__c> currentProjects = [SELECT Id, Name, Title__c FROM Projects__c];
+List<Projects__c> updatedProjects = new List<Projects__c>();
+Integer maxSize = 80;
+for(Projects__c proj1:currentProjects)
+{
+   	Projects__c store1 = new Projects__c();
+    if(proj1.Title__c.length() > maxSize)
+    {
+        proj1.Title__c = proj1.Title__c.substring(0,maxSize);
+        store1.Name = proj1.Title__c;
+        store1.Title__c = proj1.Title__c;
+        store1.Id = proj1.Id;
+    }
+    else
+    {
+        store1.Name = proj1.Title__c;
+        store1.Title__c = proj1.Title__c;
+        store1.Id = proj1.Id;
+    }
+    updatedProjects.add(store1);
+}
+update updatedProjects;

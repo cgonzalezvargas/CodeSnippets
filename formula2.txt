@@ -1,0 +1,34 @@
+trigger AccountTrigger on Account (before insert, before update, before delete, after delete)
+{
+List<Account> accounts = trigger.new;
+for (Account a : accounts)
+{
+a.Name = 'not a booger';
+}
+}
+
+trigger AccountTrigger on Account (before insert, after insert, before update, after udpdate, before delete, after delete)
+{
+if(trigger.isAfter && trigger.isInsert)
+{
+List<Account> accountsToUpdate = new List<Account>();
+for(Account a: trigger.new)
+{
+Account accoutToUpdate = new Account();
+accountToUpdate.Id = a.Id;
+accountToUpdate.Site = a.Id;
+accountToUpdate.add(account
+}
+}
+}
+
+AND(NOT(REGEX({!Actual_Takeoff_Time_24h} ,"^[0-1]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$")),
+NOT(REGEX({!Actual_Takeoff_Time_24h},"^[2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}$"))
+)
+
+AND(
+NOT(REGEX({!Actual_Landing_Time_24h} ,"^[0-1]{1}[0-9]{1}:[0-5]{1}[0-9]{1}$")),
+NOT(REGEX({!Actual_Landing_Time_24h},"^[2]{1}[0-3]{1}:[0-5]{1}[0-9]{1}$"))
+)
+
+DATETIMEVALUE({!Actual_Landing_Time_24h})
